@@ -1,0 +1,19 @@
+OASISFormat: 0.3
+Name:        udunits
+Version:     0.1.0
+Synopsis:    OCaml bindings to the UDUNITS-2 library
+Authors:     Hezekiah M. Carty
+License:     MIT
+Plugins:     META (0.3), StdFiles (0.3), DevFiles (0.3)
+XStdFilesAUTHORS: false
+XStdFilesREADME: false
+
+Library udunits
+  Path:           src
+  BuildTools:     ocamlbuild
+  Modules:        Udunits
+  CSources:       udunits_stubs.c
+  CCLib:          -ludunits2 -lexpat -lm
+  CCOpt:          -O2
+  CompiledObject: best
+
