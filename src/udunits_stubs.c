@@ -47,20 +47,25 @@ MAKE_FINALIZE(ut_system, UD_ut_system_val, ut_free_system)
 MAKE_FINALIZE(ut_unit, UD_ut_unit_val, ut_free)
 MAKE_FINALIZE(cv_converter, UD_cv_converter_val, cv_free)
 
+int compare_ut_unit( value a, value b ) {
+  return ut_compare( UD_ut_unit_val( a ), UD_ut_unit_val( b ) );
+}
+
+
 // Definition for custom OCaml handler functions
-#define MAKE_CUSTOM_OPS(t) \
+#define MAKE_CUSTOM_OPS(t, comp) \
 static struct custom_operations t##_custom_ops = { \
     identifier: #t, \
     finalize: finalize_##t, \
-    compare: custom_compare_default, \
+    compare: comp, \
     hash: custom_hash_default, \
     serialize: custom_serialize_default, \
     deserialize: custom_deserialize_default \
 };
 
-MAKE_CUSTOM_OPS(ut_system)
-MAKE_CUSTOM_OPS(ut_unit)
-MAKE_CUSTOM_OPS(cv_converter)
+MAKE_CUSTOM_OPS(ut_system, custom_compare_default)
+MAKE_CUSTOM_OPS(ut_unit, compare_ut_unit)
+MAKE_CUSTOM_OPS(cv_converter, custom_compare_default)
 
 // C -> OCaml conversion
 #define MAKE_VAL(t) \
