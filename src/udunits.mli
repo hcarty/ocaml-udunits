@@ -113,3 +113,32 @@ val get_name : (_, _) t -> encoding_t -> string
 val get_symbol : (_, _) t -> encoding_t -> string
 (** [get_name] and [get_symbol] return string representations of a unit. *)
 
+val is_dimensionless : (_, _) t -> bool
+(** [is_dimensionless u] returns [true] if [u] is dimensionless (ex.
+    radians). *)
+
+val scale_by : ('a, 'system) t -> float -> ('a, 'system) t
+(** [scale_by u x] returns a new unit which is [u] scaled by [x]. *)
+
+val offset_by : ('a, 'system) t -> float -> ('a, 'system) t
+(** [offset_by u x] returns a new unit which is [u] offset by [x]. *)
+
+val raise_to : ('a, 'system) t -> float -> ('a, 'system) t
+(** [raise_to u x] returns a new unit which is [u] raised to the [x] power. *)
+
+val root_by : ('a, 'system) t -> float -> ('a, 'system) t
+(** [root_by u x] returns a new unit which is the [x]'th root of u. *)
+
+val log_by : ('a, 'system) t -> float -> ('a, 'system) t
+(** [log_by u x] returns the logarithmic unit corresponding to the base [x] and
+    reference level [u]. *)
+
+val invert : ('a, 'system) t -> ('a, 'system) t
+(** [invert u] returns the reciprocal of [u]. *)
+
+val multiply : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t
+(** [multiply a b] returns the result of multiplying [a] by [b]. *)
+
+val divide : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t
+(** [divide a b] returns the result of dividing [a] by [b]. *)
+

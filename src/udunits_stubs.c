@@ -228,3 +228,52 @@ value ml_ut_get_symbol( value u, value encoding ) {
     CAMLreturn( caml_copy_string( result ) );
 }
 
+value ml_ut_is_dimensionless( value u ) {
+  CAMLparam1( u );
+  CAMLreturn( Val_bool( ut_is_dimensionless( UD_ut_unit_val( u ) ) ) );
+}
+
+/*
+ * Unit operations
+ */
+
+#define MAKE_FLOAT_UNIT(name) \
+value ml_##name( value u, value x ) { \
+  CAMLparam2( u, x ); \
+  ut_unit *res; \
+  res = name( Double_val( x ), UD_ut_unit_val( u ) ); \
+  CHECK_STATUS( res ); \
+  CAMLreturn( Val_ut_unit( res ) ); \
+}
+
+#define MAKE_UNIT_FLOAT(name) \
+value ml_##name( value u, value x ) { \
+  CAMLparam2( u, x ); \
+  ut_unit *res; \
+  res = name( UD_ut_unit_val( u ), Double_val( x ) ); \
+  CHECK_STATUS( res ); \
+  CAMLreturn( Val_ut_unit( res ) ); \
+}
+
+MAKE_FLOAT_UNIT( ut_scale )
+MAKE_UNIT_FLOAT( ut_offset )
+MAKE_UNIT_FLOAT( ut_raise )
+MAKE_UNIT_FLOAT( ut_root )
+MAKE_FLOAT_UNIT( ut_log )
+
+value ml_ut_invert( value u ) {
+  CAMLparam1( u );
+  CAMLreturn( Val_ut_unit( ut_invert( UD_ut_unit_val( u ) ) ) );
+}
+
+#define MAKE_UNIT_UNIT(name)\
+value ml_##name( value a, value b ) { \
+  CAMLparam2( a, b ); \
+  ut_unit *res; \
+  res = name( UD_ut_unit_val( a ), UD_ut_unit_val( b ) ); \
+  CHECK_STATUS( res ); \
+  CAMLreturn( Val_ut_unit( res ) ); \
+}
+
+MAKE_UNIT_UNIT( ut_multiply )
+MAKE_UNIT_UNIT( ut_divide )

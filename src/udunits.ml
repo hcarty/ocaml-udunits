@@ -85,6 +85,19 @@ let parse system _k s encoding = parse system s encoding
 external get_name : (_, _) t -> encoding_t -> string = "ml_ut_get_name"
 external get_symbol : (_, _) t -> encoding_t -> string = "ml_ut_get_symbol"
 
+external is_dimensionless : (_, _) t -> bool = "ml_ut_is_dimensionless"
+external scale_by : ('a, 'system) t -> float -> ('a, 'system) t = "ml_ut_scale"
+external offset_by : ('a, 'system) t -> float -> ('a, 'system) t =
+  "ml_ut_offset"
+external raise_to : ('a, 'system) t -> float -> ('a, 'system) t = "ml_ut_raise"
+external root_by : ('a, 'system) t -> float -> ('a, 'system) t = "ml_ut_root"
+external log_by : ('a, 'system) t -> float -> ('a, 'system) t = "ml_ut_log"
+external invert : ('a, 'system) t -> ('a, 'system) t = "ml_ut_invert"
+external multiply : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t =
+  "ml_ut_multiply"
+external divide : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t =
+  "ml_ut_divide"
+
 (* Set the default message handler to ignore messages rather than writing them
    to stderr.  Register our custom exception. *)
 let () =
