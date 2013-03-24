@@ -11,6 +11,7 @@ XStdFilesREADME: false
 Library udunits
   Path:           src
   BuildTools:     ocamlbuild
+  BuildDepends:   bigarray
   Modules:        Udunits
   CSources:       udunits_stubs.c
   CCLib:          -ludunits2 -lexpat -lm
