@@ -36,8 +36,6 @@ external get_status : unit -> status_t = "ml_ut_get_status"
 external read_xml : string -> 'a system_t = "ml_ut_read_xml"
 external read_xml_default : unit -> [`default] system_t = "ml_ut_read_xml_default"
 
-let read_xml _k filename = read_xml filename
-
 external are_convertible :
   (_, 'system) t -> (_, 'system) t -> bool = "ml_ut_are_convertible"
 external get_converter :
@@ -80,27 +78,26 @@ external parse :
   'system system_t -> string -> encoding_t -> ('a, 'system) t =
   "ml_ut_parse"
 
-let parse system _k s encoding = parse system s encoding
-
 external get_name : (_, _) t -> encoding_t -> string = "ml_ut_get_name"
 external get_symbol : (_, _) t -> encoding_t -> string = "ml_ut_get_symbol"
 
 external is_dimensionless : (_, _) t -> bool = "ml_ut_is_dimensionless"
-external scale_by : ('a, 'system) t -> float -> ('a, 'system) t = "ml_ut_scale"
-external offset_by : ('a, 'system) t -> float -> ('a, 'system) t =
+external scale_by : ('a, 'system) t -> float -> ('b, 'system) t = "ml_ut_scale"
+external offset_by : ('a, 'system) t -> float -> ('b, 'system) t =
   "ml_ut_offset"
-external raise_to : ('a, 'system) t -> float -> ('a, 'system) t = "ml_ut_raise"
-external root_by : ('a, 'system) t -> float -> ('a, 'system) t = "ml_ut_root"
-external log_by : ('a, 'system) t -> float -> ('a, 'system) t = "ml_ut_log"
-external invert : ('a, 'system) t -> ('a, 'system) t = "ml_ut_invert"
+external raise_to : ('a, 'system) t -> float -> ('b, 'system) t = "ml_ut_raise"
+external root_by : ('a, 'system) t -> float -> ('b, 'system) t = "ml_ut_root"
+external log_by : ('a, 'system) t -> float -> ('b, 'system) t = "ml_ut_log"
+external invert : ('a, 'system) t -> ('b, 'system) t = "ml_ut_invert"
 external multiply : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t =
   "ml_ut_multiply"
 external divide : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t =
   "ml_ut_divide"
 
-(* Set the default message handler to ignore messages rather than writing them
-   to stderr.  Register our custom exception. *)
 let () =
+  (* Register custom exception *)
   Callback.register_exception "ut status exception" (Error Success);
+  (* Set the default message handler to ignore messages rather than writing
+     them to stderr. *)
   init ()
 

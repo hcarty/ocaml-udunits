@@ -40,8 +40,8 @@ val get_status : unit -> status_t
     example of where this can be useful is determining why a call to
     {!are_convertible} returned [false]. *)
 
-val read_xml : 'a -> string -> 'a system_t
-(** [read_xml tag filename] reads the unit system from [filename].
+val read_xml : string -> 'a system_t
+(** [read_xml filename] reads the unit system from [filename].
 
     @raise Error if [filename] does not exist or is otherwise invalid *)
 
@@ -103,8 +103,8 @@ val convert_array : (_, _, _) converter_t -> float array -> float array
     according to [converter], returning the results as a newly allocated
     array. *)
 
-val parse : 'system system_t -> 'a -> string -> encoding_t -> ('a, 'system) t
-(** [parse system kind s encoding] will return a unit defined by [s] under
+val parse : 'system system_t -> string -> encoding_t -> ('a, 'system) t
+(** [parse system s encoding] will return a unit defined by [s] under
     [system].  [encoding] refers to the encoding of [s].
     
     @raise Error if there is an error parsing [s] *)
@@ -117,23 +117,23 @@ val is_dimensionless : (_, _) t -> bool
 (** [is_dimensionless u] returns [true] if [u] is dimensionless (ex.
     radians). *)
 
-val scale_by : ('a, 'system) t -> float -> ('a, 'system) t
+val scale_by : ('a, 'system) t -> float -> ('b, 'system) t
 (** [scale_by u x] returns a new unit which is [u] scaled by [x]. *)
 
-val offset_by : ('a, 'system) t -> float -> ('a, 'system) t
+val offset_by : ('a, 'system) t -> float -> ('b, 'system) t
 (** [offset_by u x] returns a new unit which is [u] offset by [x]. *)
 
-val raise_to : ('a, 'system) t -> float -> ('a, 'system) t
+val raise_to : ('a, 'system) t -> float -> ('b, 'system) t
 (** [raise_to u x] returns a new unit which is [u] raised to the [x] power. *)
 
-val root_by : ('a, 'system) t -> float -> ('a, 'system) t
+val root_by : ('a, 'system) t -> float -> ('b, 'system) t
 (** [root_by u x] returns a new unit which is the [x]'th root of u. *)
 
-val log_by : ('a, 'system) t -> float -> ('a, 'system) t
+val log_by : ('a, 'system) t -> float -> ('b, 'system) t
 (** [log_by u x] returns the logarithmic unit corresponding to the base [x] and
     reference level [u]. *)
 
-val invert : ('a, 'system) t -> ('a, 'system) t
+val invert : ('a, 'system) t -> ('b, 'system) t
 (** [invert u] returns the reciprocal of [u]. *)
 
 val multiply : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t
