@@ -103,14 +103,16 @@ val convert_array : (_, _, _) converter_t -> float array -> float array
     according to [converter], returning the results as a newly allocated
     array. *)
 
-val parse : 'system system_t -> string -> encoding_t -> ('a, 'system) t
-(** [parse system s encoding] will return a unit defined by [s] under
-    [system].  [encoding] refers to the encoding of [s].
+val parse :
+  ?encoding:encoding_t -> 'system system_t -> string -> ('a, 'system) t
+(** [parse ?encoding system s] will return a unit defined by [s] under
+    [system].  [encoding] refers to the encoding of [s] and defaults to
+    [UTF8].
     
     @raise Error if there is an error parsing [s] *)
 
-val get_name : (_, _) t -> encoding_t -> string
-val get_symbol : (_, _) t -> encoding_t -> string
+val get_name : ?encoding:encoding_t -> (_, _) t -> string
+val get_symbol : ?encoding:encoding_t -> (_, _) t -> string
 (** [get_name] and [get_symbol] return string representations of a unit. *)
 
 val is_dimensionless : (_, _) t -> bool

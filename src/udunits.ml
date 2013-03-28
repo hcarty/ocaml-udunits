@@ -78,8 +78,13 @@ external parse :
   'system system_t -> string -> encoding_t -> ('a, 'system) t =
   "ml_ut_parse"
 
+let parse ?(encoding = UTF8) system u = parse system u encoding
+
 external get_name : (_, _) t -> encoding_t -> string = "ml_ut_get_name"
 external get_symbol : (_, _) t -> encoding_t -> string = "ml_ut_get_symbol"
+
+let get_name ?(encoding = UTF8) u = get_name u encoding
+let get_symbol ?(encoding = UTF8) u = get_symbol u encoding
 
 external is_dimensionless : (_, _) t -> bool = "ml_ut_is_dimensionless"
 external scale_by : ('a, 'system) t -> float -> ('b, 'system) t = "ml_ut_scale"
