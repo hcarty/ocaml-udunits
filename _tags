@@ -1,0 +1,28 @@
+# OASIS_START
+# DO NOT EDIT (digest: f42aa5a30701ac517bab3f3b7f0bee98)
+# Ignore VCS directories, you can use the same kind of rule outside 
+# OASIS_START/STOP if you want to exclude directories that contains 
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library udunits
+"src/udunits.cmxs": use_udunits
+<src/*.ml{,i}>: oasis_library_udunits_ccopt
+"src/udunits_stubs.c": oasis_library_udunits_ccopt
+<src/udunits.{cma,cmxa}>: oasis_library_udunits_cclib
+"src/libudunits_stubs.lib": oasis_library_udunits_cclib
+"src/dlludunits_stubs.dll": oasis_library_udunits_cclib
+"src/libudunits_stubs.a": oasis_library_udunits_cclib
+"src/dlludunits_stubs.so": oasis_library_udunits_cclib
+<src/udunits.{cma,cmxa}>: use_libudunits_stubs
+<src/*.ml{,i}>: pkg_bigarray
+"src/udunits_stubs.c": pkg_bigarray
+# OASIS_STOP
