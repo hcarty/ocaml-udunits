@@ -1,8 +1,8 @@
-type ('a, 'system) t
+type 'system t
 
 type 'a system_t
 
-type ('src, 'dest, 'system) converter_t
+type 'system converter_t
 
 type status_t =
   | Success
@@ -37,24 +37,24 @@ external read_xml : string -> 'a system_t = "ml_ut_read_xml"
 external read_xml_default : unit -> [`default] system_t = "ml_ut_read_xml_default"
 
 external are_convertible :
-  (_, 'system) t -> (_, 'system) t -> bool = "ml_ut_are_convertible"
+  'system t -> 'system t -> bool = "ml_ut_are_convertible"
 external get_converter :
-  src:('s, 'system) t ->
-  dest:('d, 'system) t ->
-  ('s, 'd, 'system) converter_t =
+  src:'system t ->
+  dest:'system t ->
+  'system converter_t =
   "ml_ut_get_converter"
 
-external convert : (_, _, _) converter_t -> float -> float =
+external convert : _ converter_t -> float -> float =
   "ml_cv_convert_double"
 
 external convert_array1_to :
-  (_, _, _) converter_t ->
+  _ converter_t ->
   src:(float, 'a, 'b) Bigarray.Array1.t -> 
   dest:(float, 'a, 'b) Bigarray.Array1.t ->
   unit = "ml_cv_convert_bigarray"
 
 external convert_array_to :
-  (_, _, _) converter_t ->
+  _ converter_t ->
   src:float array ->
   dest:float array ->
   unit = "ml_cv_convert_array"
@@ -75,28 +75,28 @@ let convert_array conv a =
   a'
 
 external parse :
-  'system system_t -> string -> encoding_t -> ('a, 'system) t =
+  'system system_t -> string -> encoding_t -> 'system t =
   "ml_ut_parse"
 
 let parse ?(encoding = UTF8) system u = parse system u encoding
 
-external get_name : (_, _) t -> encoding_t -> string = "ml_ut_get_name"
-external get_symbol : (_, _) t -> encoding_t -> string = "ml_ut_get_symbol"
+external get_name : _ t -> encoding_t -> string = "ml_ut_get_name"
+external get_symbol : _ t -> encoding_t -> string = "ml_ut_get_symbol"
 
 let get_name ?(encoding = UTF8) u = get_name u encoding
 let get_symbol ?(encoding = UTF8) u = get_symbol u encoding
 
-external is_dimensionless : (_, _) t -> bool = "ml_ut_is_dimensionless"
-external scale_by : ('a, 'system) t -> float -> ('b, 'system) t = "ml_ut_scale"
-external offset_by : ('a, 'system) t -> float -> ('b, 'system) t =
+external is_dimensionless : _ t -> bool = "ml_ut_is_dimensionless"
+external scale_by : 'system t -> float -> 'system t = "ml_ut_scale"
+external offset_by : 'system t -> float -> 'system t =
   "ml_ut_offset"
-external raise_to : ('a, 'system) t -> float -> ('b, 'system) t = "ml_ut_raise"
-external root_by : ('a, 'system) t -> float -> ('b, 'system) t = "ml_ut_root"
-external log_by : ('a, 'system) t -> float -> ('b, 'system) t = "ml_ut_log"
-external invert : ('a, 'system) t -> ('b, 'system) t = "ml_ut_invert"
-external multiply : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t =
+external raise_to : 'system t -> float -> 'system t = "ml_ut_raise"
+external root_by : 'system t -> float -> 'system t = "ml_ut_root"
+external log_by : 'system t -> float -> 'system t = "ml_ut_log"
+external invert : 'system t -> 'system t = "ml_ut_invert"
+external multiply : 'system t -> 'system t -> 'system t =
   "ml_ut_multiply"
-external divide : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t =
+external divide : 'system t -> 'system t -> 'system t =
   "ml_ut_divide"
 
 let () =

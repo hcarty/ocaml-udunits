@@ -1,10 +1,10 @@
-type ('a, 'system) t
+type 'system t
 (** A type defining a unit *)
 
 type 'a system_t
 (** A unit system *)
 
-type ('src, 'dest, 'system) converter_t
+type 'system converter_t
 (** A converter from one unit to another *)
 
 type status_t =
@@ -49,23 +49,20 @@ val read_xml_default : unit -> [`default] system_t
 (** [read_xml_default ()] is like {!read_xml} except that it reads the default
     unit system defintion that comes with UDUNITS. *)
 
-val are_convertible : (_, 'system) t -> (_, 'system) t -> bool
+val are_convertible : 'system t -> 'system t -> bool
 (** [are_convertible a b] will return [true] if a conversion is possible from
     [a] to [b], [false] otherwise.  If [are_convertible] returns false then
     {!get_status} can tell why a conversion is not allowed. *)
 
-val get_converter :
-  src:('s, 'system) t ->
-  dest:('d, 'system) t ->
-  ('s, 'd, 'system) converter_t
+val get_converter : src:'system t -> dest:'system t -> 'system converter_t
 (** [get_converter ~src ~dest] returns a converter from the unit defined in
     [src] to the unit defined in [dest]. *)
 
-val convert : (_, _, _) converter_t -> float -> float
+val convert : _ converter_t -> float -> float
 (** [convert converter x] converts [x] according to [converter]. *)
 
 val convert_array1_to :
-  (_, _, _) converter_t ->
+  _ converter_t ->
   src:(float, 'a, 'b) Bigarray.Array1.t -> 
   dest:(float, 'a, 'b) Bigarray.Array1.t ->
   unit
@@ -78,7 +75,7 @@ val convert_array1_to :
     @raise Error if [dest] has more elements than [src] *)
 
 val convert_array_to :
-  (_, _, _) converter_t ->
+  _ converter_t ->
   src:float array ->
   dest:float array ->
   unit
@@ -91,56 +88,56 @@ val convert_array_to :
     @raise Error if [dest] has more elements than [src] *)
 
 val convert_array1 :
-  (_, _, _) converter_t ->
+  _ converter_t ->
   (float, 'a, 'b) Bigarray.Array1.t ->
   (float, 'a, 'b) Bigarray.Array1.t
 (** [convert_array1 converter src] converts the values in [src]
     according to [converter], returning the results as a newly allocated
     array. *)
 
-val convert_array : (_, _, _) converter_t -> float array -> float array
+val convert_array : _ converter_t -> float array -> float array
 (** [convert_array1 converter src] converts the values in [src]
     according to [converter], returning the results as a newly allocated
     array. *)
 
 val parse :
-  ?encoding:encoding_t -> 'system system_t -> string -> ('a, 'system) t
+  ?encoding:encoding_t -> 'system system_t -> string -> 'system t
 (** [parse ?encoding system s] will return a unit defined by [s] under
     [system].  [encoding] refers to the encoding of [s] and defaults to
     [UTF8].
     
     @raise Error if there is an error parsing [s] *)
 
-val get_name : ?encoding:encoding_t -> (_, _) t -> string
-val get_symbol : ?encoding:encoding_t -> (_, _) t -> string
+val get_name : ?encoding:encoding_t -> _ t -> string
+val get_symbol : ?encoding:encoding_t -> _ t -> string
 (** [get_name] and [get_symbol] return string representations of a unit. *)
 
-val is_dimensionless : (_, _) t -> bool
+val is_dimensionless : _ t -> bool
 (** [is_dimensionless u] returns [true] if [u] is dimensionless (ex.
     radians). *)
 
-val scale_by : ('a, 'system) t -> float -> ('b, 'system) t
+val scale_by : 'system t -> float -> 'system t
 (** [scale_by u x] returns a new unit which is [u] scaled by [x]. *)
 
-val offset_by : ('a, 'system) t -> float -> ('b, 'system) t
+val offset_by : 'system t -> float -> 'system t
 (** [offset_by u x] returns a new unit which is [u] offset by [x]. *)
 
-val raise_to : ('a, 'system) t -> float -> ('b, 'system) t
+val raise_to : 'system t -> float -> 'system t
 (** [raise_to u x] returns a new unit which is [u] raised to the [x] power. *)
 
-val root_by : ('a, 'system) t -> float -> ('b, 'system) t
+val root_by : 'system t -> float -> 'system t
 (** [root_by u x] returns a new unit which is the [x]'th root of u. *)
 
-val log_by : ('a, 'system) t -> float -> ('b, 'system) t
+val log_by : 'system t -> float -> 'system t
 (** [log_by u x] returns the logarithmic unit corresponding to the base [x] and
     reference level [u]. *)
 
-val invert : ('a, 'system) t -> ('b, 'system) t
+val invert : 'system t -> 'system t
 (** [invert u] returns the reciprocal of [u]. *)
 
-val multiply : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t
+val multiply : 'system t -> 'system t -> 'system t
 (** [multiply a b] returns the result of multiplying [a] by [b]. *)
 
-val divide : ('a, 'system) t -> ('b, 'system) t -> ('c, 'system) t
+val divide : 'system t -> 'system t -> 'system t
 (** [divide a b] returns the result of dividing [a] by [b]. *)
 
