@@ -1,9 +1,9 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 1b1fd0400719ab21768076ab4f76a43f) *)
+(* DO NOT EDIT (digest: 6051b8a235708547e12016903682f354) *)
 This is the INSTALL file for the udunits distribution.
 
 This package uses OASIS to generate its build system. See section OASIS for
-full information. 
+full information.
 
 Dependencies
 ============
@@ -23,7 +23,7 @@ Installing
 Uninstalling
 ============
 
-1. Go to the root of the package 
+1. Go to the root of the package
 2. Run 'ocaml setup.ml -uninstall'
 
 OASIS

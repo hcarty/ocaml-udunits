@@ -1,7 +1,7 @@
 # OASIS_START
-# DO NOT EDIT (digest: 772f99f37d6a4a6fa313b201a8dfe41d)
-version = "0.1.0"
-description = "OCaml bindings to the UDUNITS-2 library"
+# DO NOT EDIT (digest: 460485df1e2661c29b625a8c522c418c)
+version = "0.1.1"
+description = "Bindings to the UDUNITS-2 library"
 requires = "bigarray"
 archive(byte) = "udunits.cma"
 archive(byte, plugin) = "udunits.cma"
