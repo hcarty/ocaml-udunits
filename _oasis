@@ -1,9 +1,13 @@
 OASISFormat: 0.3
 Name:        udunits
-Version:     0.1.0
-Synopsis:    OCaml bindings to the UDUNITS-2 library
+Version:     0.1.1
+Synopsis:    Bindings to the UDUNITS-2 library
+Description: This library provides access to the UDUNITS-2 unit conversion
+  library (http://www.unidata.ucar.edu/software/udunits/).
 Authors:     Hezekiah M. Carty
+Maintainers: Hezekiah M. Carty <hez@0ok.org>
 License:     MIT
+Homepage:    https://github.com/hcarty/ocaml-udunits
 Plugins:     META (0.3), StdFiles (0.3), DevFiles (0.3)
 XStdFilesAUTHORS: false
 XStdFilesREADME: false
@@ -18,3 +22,7 @@ Library udunits
   CCOpt:          -O2
   CompiledObject: best
 
+SourceRepository master
+  Type:     git
+  Location: https://github.com/hcarty/ocaml-udunits.git
+  Browser:  https://github.com/hcarty/ocaml-udunits
