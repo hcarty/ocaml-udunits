@@ -24,13 +24,13 @@ type status_t =
   | Open_env
   | Open_default
   | Parse
-(** Possible UDUNITS result status codes *)
+  (** Possible UDUNITS result status codes *)
 
 type encoding_t =
   | ASCII
   | ISO_8859_1
   | UTF8
-(** Possible text encodings accepted by and returned by UDUNITS *)
+  (** Possible text encodings accepted by and returned by UDUNITS *)
 
 exception Error of status_t
 (** Exception raised if a function call fails *)
@@ -71,7 +71,7 @@ val convert_array1_to :
     starts at the first value of each array and proceeds until [dest] has
     been filled.  [src] and [dest] can be the same value if you want to
     modify [src] directly.
-    
+
     @raise Error if [dest] has more elements than [src] *)
 
 val convert_array_to :
@@ -84,7 +84,7 @@ val convert_array_to :
     starts at the first value of each array and proceeds until [dest] has
     been filled.  [src] and [dest] can be the same value if you want to
     modify [src] directly.
-    
+
     @raise Error if [dest] has more elements than [src] *)
 
 val convert_array1 :
@@ -104,13 +104,30 @@ val parse :
   ?encoding:encoding_t -> 'system system_t -> string -> 'system t
 (** [parse ?encoding system s] will return a unit defined by [s] under
     [system].  [encoding] refers to the encoding of [s] and defaults to
-    [UTF8].
-    
+    [ASCII].
+
     @raise Error if there is an error parsing [s] *)
 
 val get_name : ?encoding:encoding_t -> _ t -> string
 val get_symbol : ?encoding:encoding_t -> _ t -> string
-(** [get_name] and [get_symbol] return string representations of a unit. *)
+(** [get_name] and [get_symbol] return string representations of a named
+    unit. *)
+
+val format :
+  ?encoding:encoding_t ->
+  ?names:bool ->
+  ?basic:bool ->
+  ?max_length:int ->
+  _ t ->
+  string
+(** [format u] returns a string representation of [u].
+
+    @param names indicates if the string should use unit names ([true]) or
+    symbols ([false]).  Defaults to [true].
+    @param basic indicates if the unit should be broken down into base units
+    ([true]) or left in composite form ([false]).  Defaults to [false].
+    @param max_length sets a maximum length for the returned string.
+    Defaults to [1024]. *)
 
 val is_dimensionless : _ t -> bool
 (** [is_dimensionless u] returns [true] if [u] is dimensionless (ex.

@@ -228,6 +228,34 @@ value ml_ut_get_symbol( value u, value encoding ) {
     CAMLreturn( caml_copy_string( result ) );
 }
 
+value ml_ut_format( value u, value encoding, value names, value basic, value max_length ) {
+    CAMLparam5( u, encoding, names, basic, max_length );
+    CAMLlocal1( ml_buf );
+
+    int opts =
+        Int_val( encoding ) |
+        (Int_val( basic ) ? UT_DEFINITION : 0) |
+        (Int_val( names ) ? UT_NAMES : 0);
+
+    int result;
+    char *buf;
+    buf = (char *)malloc( sizeof(char) * Int_val( max_length ) );
+    if ( buf == NULL ) {
+        caml_failwith( "Unable to allocate buffer" );
+    }
+
+    result = ut_format( UD_ut_unit_val( u ), buf, Int_val( max_length ), opts );
+    if ( result == -1 ) {
+        caml_raise_with_arg( *caml_named_value( "ut status exception" ), Val_int( ut_get_status() ) );
+    }
+
+    ml_buf = caml_copy_string( buf );
+
+    free( buf );
+
+    CAMLreturn( ml_buf );
+}
+
 value ml_ut_is_dimensionless( value u ) {
   CAMLparam1( u );
   CAMLreturn( Val_bool( ut_is_dimensionless( UD_ut_unit_val( u ) ) ) );

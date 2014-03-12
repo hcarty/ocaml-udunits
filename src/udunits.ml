@@ -78,13 +78,19 @@ external parse :
   'system system_t -> string -> encoding_t -> 'system t =
   "ml_ut_parse"
 
-let parse ?(encoding = UTF8) system u = parse system u encoding
+let parse ?(encoding = ASCII) system u = parse system u encoding
 
 external get_name : _ t -> encoding_t -> string = "ml_ut_get_name"
 external get_symbol : _ t -> encoding_t -> string = "ml_ut_get_symbol"
+external format : _ t -> encoding_t -> bool -> bool -> int -> string =
+  "ml_ut_format"
 
-let get_name ?(encoding = UTF8) u = get_name u encoding
-let get_symbol ?(encoding = UTF8) u = get_symbol u encoding
+let get_name ?(encoding = ASCII) u = get_name u encoding
+let get_symbol ?(encoding = ASCII) u = get_symbol u encoding
+let format
+    ?(encoding = ASCII) ?(names = true) ?(basic = false) ?(max_length = 1024) u
+  =
+  format u encoding names basic max_length
 
 external is_dimensionless : _ t -> bool = "ml_ut_is_dimensionless"
 external scale_by : 'system t -> float -> 'system t = "ml_ut_scale"
