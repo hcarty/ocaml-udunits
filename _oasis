@@ -1,6 +1,6 @@
-OASISFormat: 0.3
+OASISFormat: 0.4
 Name:        udunits
-Version:     0.1.1
+Version:     0.2.0
 Synopsis:    Bindings to the UDUNITS-2 library
 Description: This library provides access to the UDUNITS-2 unit conversion
   library (http://www.unidata.ucar.edu/software/udunits/).
@@ -8,7 +8,7 @@ Authors:     Hezekiah M. Carty
 Maintainers: Hezekiah M. Carty <hez@0ok.org>
 License:     MIT
 Homepage:    https://github.com/hcarty/ocaml-udunits
-Plugins:     META (0.3), StdFiles (0.3), DevFiles (0.3)
+Plugins:     META (0.4), StdFiles (0.4), DevFiles (0.4)
 XStdFilesAUTHORS: false
 XStdFilesREADME: false
 
