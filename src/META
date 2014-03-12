@@ -1,6 +1,6 @@
 # OASIS_START
-# DO NOT EDIT (digest: 460485df1e2661c29b625a8c522c418c)
-version = "0.1.1"
+# DO NOT EDIT (digest: 7a55310ce2227a9475e4905eef80df23)
+version = "0.2.0"
 description = "Bindings to the UDUNITS-2 library"
 requires = "bigarray"
 archive(byte) = "udunits.cma"
