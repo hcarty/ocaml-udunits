@@ -1,0 +1,8 @@
+(library
+ (name udunits)
+ (public_name udunits)
+ (synopsis "This library provides access to the UDUNITS-2 unit conversion")
+ (wrapped false)
+ (c_names udunits_stubs)
+ (c_library_flags -ludunits2 -lexpat -lm)
+ (libraries bigarray))
