@@ -1,14 +1,18 @@
-opam-version: "1.2"
+opam-version: "2.0"
 name: "udunits"
 version: "0.2.0"
 maintainer: "hez@0ok.org"
 authors: [ "Hezekiah M. Carty" ]
 license: "MIT"
 homepage: "https://github.com/hcarty/ocaml-udunits"
+bug-reports: "https://github.com/hcarty/ocaml-udunits/issues"
 tags: [ "clib:udunits2" "clib:m" "clib:expat"  ]
-build: [[ "jbuilder" "build" "-p" name "-j" jobs ]]
+build: [
+  ["dune" "subst"] {pinned}
+  ["dune" "build" "-p" name "-j" jobs "@install"]
+]
 depends: [
-  "jbuilder" {build & >= "1.0+beta20"}
+  "dune" {>= "1.11"}
 ]
 depexts: [
   [["debian"] ["libudunits2-dev" "libexpat1-dev"]]
@@ -16,3 +20,4 @@ depexts: [
   [["osx" "homebrew"] ["udunits" "expat"]]
 ]
 dev-repo: "git://github.com/hcarty/ocaml-udunits"
+synopsis: "Bindings to the UDUNITS-2 library"
